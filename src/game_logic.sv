@@ -2,11 +2,11 @@
 `default_nettype none
 
 module game_logic(
-	input wire pixel_clk_in,
+	input wire clk_in,
  	input wire rst_in,
 
   	input wire [10:0] hcount_in,
-  	input wire [9:0]  vcount_in,
+  	input wire [9:01]  vcount_in,
   	input wire [10:0] katana_x,
   	input wire [9:0] katana_y,
 
@@ -31,30 +31,43 @@ module game_logic(
 
 	logic split;
 
+	logic veggie_gone; // when parabolic motion module receives veggie_gone, set movement to zero
+					   // when split_sprite module receives veggie_gone, make veggie disappear
+
+	logic [15:0] random; // random 16-bit number
+
 	// instantiate veggie and katana split_sprite here
-	// don't need split signal for katana
-	//
-	// split_sprite #(parameters) top_veggie(
-	//		.x_in(top_veggie_x), .hcount_in(hcount_in),
-	// 		.y_in(top_veggie_y), .vcount_in(vcount_in),
-	//		.split_in(split), .pixel_out(top_veggie_out));
-	//
-	// split_sprite #(parameters) bottom_veggie(
-	//		.x_in(bottom_veggie_x), .hcount_in(hcount_in),
-	// 		.y_in(bottom_veggie_y), .vcount_in(vcount_in),
-	//		.split_in(split), .pixel_out(bottom_veggie_out));
-	//
-	// split_sprite #(parameters) katana(
-	//		.x_in(katana_x), .hcount_in(hcount_in),
-	// 		.y_in(katana_y), .vcount_in(vcount_in),
-	//		.split_in(), .pixel_out(katana_out));
+	// don't need split, angle, or veggie_gone signals for katana
+	split_sprite #(parameters) top_veggie(
+			.x_in(top_veggie_x), .hcount_in(hcount_in),
+	 		.y_in(top_veggie_y), .vcount_in(vcount_in),
+			.split_in(split), .angle_in(angle),
+			.veggie_gone_in(veggie_gone), .pixel_out(top_veggie_out));
+	
+	split_sprite #(parameters) bottom_veggie(
+			.x_in(bottom_veggie_x), .hcount_in(hcount_in),
+	 		.y_in(bottom_veggie_y), .vcount_in(vcount_in),
+			.split_in(split), .angle_in(angle),
+			.veggie_gone_in(veggie_gone), .pixel_out(bottom_veggie_out));
+	
+	split_sprite #(parameters) katana(
+			.x_in(katana_x), .hcount_in(hcount_in),
+	 		.y_in(katana_y), .vcount_in(vcount_in),
+			.split_in(), .angle_in(),
+			.veggie_gone_in(), .pixel_out(katana_out));
 
 	// instantiate veggie parabolic movement module outputs x and y speed
 	// upon receiving split signal, change movement
-	// parabolic movement(
-	// 		.clk_in(pixel_clk_in), .rst_in(rst_in),
-	//		.split_in(split), 
-	//		.x_speed_out(top_veggie_x_speed), .y_speed_out(top_veggie_y_speed));
+	// upon receiving veggie_gone signal, set movement to zero
+	parabolic movement(
+			.clk_in(clk_in), .rst_in(rst_in),
+			.split_in(split), .veggie_gone_in(veggie_gone),
+			.x_speed_out(top_veggie_x_speed), .y_speed_out(top_veggie_y_speed));
+
+	lfsr_16 yuh(.clk_in(clk_in), // LFSR "RANDOMIZER"
+              .rst_in(0),
+              .seed_in(16'b1),
+              .q_out(random)); // random 16-bit number
 
 
 	// IMPORTANT: when h_count == 1024 and v_count == 768, frame is over
@@ -72,9 +85,10 @@ module game_logic(
 		end
 	end
 
-	always_ff @(posedge pixel_clk_in) begin
+	always_ff @(posedge clk_in) begin
 		if(rst_in) begin // starting positions for fruit and katana
 			split <= 0;
+			veggie_gone <= 0;
 		end else begin
 			split <= 0; // ensures split is only up for one clock cycle
 			if (frame_done) begin // finished current frame, logic for next frame
@@ -87,15 +101,18 @@ module game_logic(
 				
 				// KATANA-VEGGIE INTERACTION - if katana contacts fruit, send split signal for one clock cycle;
 				if (~split) begin // make sure split signal is only sent when fruit isn't already split
-					if ((katana_x >= top_fruit_x && katana_x <= top_fruit_x - fruit_width) &&
-					(katana_y >= top_fruit_y && katana_y <= top_fruit_y - fruit_height)) begin
+					if ((katana_x >= top_veggie_x && katana_x <= top_veggie_x - veggie_width) &&
+					(katana_y >= top_veggie_y && katana_y <= top_veggie_y - veggie_height)) begin
 						split <= 1;
 					end
 				end
 
-				// VEGGIE RESPAWN
+				// VEGGIE RESPAWN (when veggie hits bottom - doesn't matter if sliced or not)
 				// need a randomized respawn point at the bottom of the screen whenever split veggies hit the bottom
+				if (top_veggie_y > 768-veggie_height-12) begin // need to account for vertical speed. If veggie is moving at 12 pixels per frame, bound needs to make sure it can't "jump past"
+					veggie_gone <= 1;
 
+				end
 
 			end
 		end
