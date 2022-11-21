@@ -20,6 +20,32 @@ module top_level(
 
   );
 
+//NEW FOR PROJECT (START)----------------------------------------------
+logic [10:0] katana_x;
+logic [9:0] katana_y;
+logic [11:0] game_pixel_out;
+logic [8:0] angle; //0-360 degrees
+
+slice_angle katana (
+  .clk_in(clk_65mhz),
+  .rst_in(sys_rst),
+  .hcount_in(hcount), // need to be pipelined
+  .vcount_in(vcount), // need to be pipelined
+  .angle_out(angle), // goes to split_sprite
+);
+
+game_logic game (
+  .clk_in(clk_65mhz),
+  .rst_in(sys_rst),
+  .hcount_in(hcount),
+  .vcount_in(vcount),
+  .katana_x(katana_x), // from tracker
+  .katana_y(katana_y), // from tracker
+  .pixel_out(game_pixel_out)
+);
+
+//NEW FOR PROJECT (END)------------------------------------------------
+
 //NEW FOR LAB 04B (START)----------------------------------------------
   logic [15:0] pixel_data_rec; // pixel data from recovery module
   logic [10:0] hcount_rec; //hcount from recovery module
