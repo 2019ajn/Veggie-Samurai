@@ -6,7 +6,7 @@ module game_logic(
  	input wire rst_in,
 
   	input wire [10:0] hcount_in,
-  	input wire [9:01]  vcount_in,
+  	input wire [9:01] vcount_in,
   	input wire [10:0] katana_x,
   	input wire [9:0] katana_y,
 
@@ -38,6 +38,7 @@ module game_logic(
 
 	// instantiate veggie and katana split_sprite here
 	// don't need split, angle, or veggie_gone signals for katana
+	/*
 	split_sprite #(parameters) top_veggie(
 			.x_in(top_veggie_x), .hcount_in(hcount_in),
 	 		.y_in(top_veggie_y), .vcount_in(vcount_in),
@@ -55,6 +56,15 @@ module game_logic(
 	 		.y_in(katana_y), .vcount_in(vcount_in),
 			.split_in(), .angle_in(),
 			.veggie_gone_in(), .pixel_out(katana_out));
+	*/
+	block_sprite #(.WIDTH(128), .HEIGHT(128), .COLOR(12'h00F)) top_veggie(
+            .x_in(top_veggie_x), .hcount_in(hcount_in),
+            .y_in(top_veggie_y), .vcount_in(vcount_in),
+            .pixel_out(top_veggie_out));
+	block_sprite #(.WIDTH(128), .HEIGHT(128), .COLOR(12'h00F)) bottom_veggie(
+            .x_in(bottom_veggie_x), .hcount_in(hcount_in),
+            .y_in(bottom_veggie_y), .vcount_in(vcount_in),
+            .pixel_out(bottom_veggie_out));
 
 	// instantiate veggie parabolic movement module outputs x and y speed
 	// upon receiving split signal, change movement
@@ -78,10 +88,10 @@ module game_logic(
 	always_comb begin // katana displays "on top of" fruit
 		if (|katana_out) begin
 			pixel_out = katana_out;
-		end else if (|fruit_out) begin
-			pixel_out = top_fruit_out;
-		end else if (|bottom_fruit_out) begin
-			pixel_out = bottom_fruit_out;
+		end else if (|top_veggie_out) begin
+			pixel_out = top_veggie_out;
+		end else if (|bottom_veggie_out) begin
+			pixel_out = bottom_veggie_out;
 		end
 	end
 
@@ -90,7 +100,6 @@ module game_logic(
 			split <= 0;
 			veggie_gone <= 0;
 		end else begin
-			split <= 0; // ensures split is only up for one clock cycle
 			if (frame_done) begin // finished current frame, logic for next frame
 
 				// VEGGIE MOVEMENT
@@ -110,8 +119,9 @@ module game_logic(
 				// VEGGIE RESPAWN (when veggie hits bottom - doesn't matter if sliced or not)
 				// need a randomized respawn point at the bottom of the screen whenever split veggies hit the bottom
 				if (top_veggie_y > 768-veggie_height-12) begin // need to account for vertical speed. If veggie is moving at 12 pixels per frame, bound needs to make sure it can't "jump past"
+					split <= 0; // unsplit
 					veggie_gone <= 1;
-
+					// set new starting point here using randomizer
 				end
 
 			end
