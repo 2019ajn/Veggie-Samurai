@@ -2,7 +2,7 @@
 `default_nettype none
 
 module slice_angle(
-	input wire pixel_clk_in,
+	input wire clk_in,
   	input wire rst_in,
 
 	input wire [10:0] hcount_in,
@@ -10,7 +10,8 @@ module slice_angle(
   	input wire [10:0] katana_x,
   	input wire [9:0] katana_y,
 
-  	output real angle
+  	output logic [9:0] rise,
+  	output logic [9:0] run
 );
 
 	// IMPORTANT: when h_count == 1024 and v_count == 768, frame is over
@@ -21,15 +22,14 @@ module slice_angle(
 	logic [10:0] x_buffer [9:0];
 	logic [9:0] y_buffer [9:0];
 
-	logic [7:0] rise;
-	logic [7:0] run;
+	// possibly output rise/run and make sure they're signed (from lab 4b)
 
-	always_comb begin // calculating rise and run
+	always @(*) begin // calculating rise and run
 		rise = y_buffer[0] - y_buffer[9];
 		run = x_buffer[0] - x_buffer[9];
 	end
 
-	always_ff @(posedge pixel_clk_in)begin
+	always_ff @(posedge clk_in)begin
 		if(rst_in) begin
 			for(int i = 0; i <= 9; i=i+1) begin //clear buffers
 				x_buffer[i] <= 0;
@@ -44,9 +44,6 @@ module slice_angle(
 					y_buffer[i] <= y_buffer[i-1];
 				end
 			end
-
-			angle <= $atan2(run,rise); // calculating angle in radians
-
 		end
 	end
 
