@@ -4,7 +4,7 @@
   **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 
-source /tmp/build.tcl.ODG6BQ
+source /tmp/build.tcl.4U70Ml
 # exec rm -rf .Xil .gen .srcs
 # set_param board.repoPaths /home/builder/.Xilinx/Vivado/2022.1/xhub/board_store/xilinx_board_store
 # xhub::refresh_catalog [xhub::get_xstores xilinx_board_store]
@@ -13,35 +13,35 @@ INFO: [xhubtcl 76-61] The object 'digilentinc.com:xilinx_board_store:nexys4_ddr:
 # set_part xc7a100tcsg324-1
 INFO: [Coretcl 2-1500] The part has been set to 'xc7a100tcsg324-1' for the current project only. Run set_part -help for more details. To evaluate different speed grades in the current design, use the set_speed_grade command, or use the open_checkpoint -part command to change the part used by an existing checkpoint design.
 # set_property board_part digilentinc.com:nexys4_ddr:part0:1.1 [current_project]
-# read_xdc /tmp/tmp.gcfcMR/xdc/top_level.xdc
-# read_verilog -sv /tmp/tmp.gcfcMR/src/slice_angle.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/lab04_ssc.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/clk_wiz_lab3.v
-# read_verilog -sv /tmp/tmp.gcfcMR/src/mirror.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/convolution.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/top_level.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/divider.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/rgb_to_ycrcb.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/vga_mux.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/rotate2.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/threshold.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/game_logic.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/camera.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/block_sprite.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/xilinx_true_dual_port_read_first_2_clock_ram.v
-# read_verilog -sv /tmp/tmp.gcfcMR/src/kernels.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/buffer.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/image_sprite.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/filter.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/iverilog_hack.svh
-# read_verilog -sv /tmp/tmp.gcfcMR/src/xilinx_true_dual_port_read_first_1_clock_ram.v
-# read_verilog -sv /tmp/tmp.gcfcMR/src/rotate.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/vga.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/center_of_mass.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/lfsr_16.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/scale.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/katana_tracking.sv
-# read_verilog -sv /tmp/tmp.gcfcMR/src/recover.sv
+# read_xdc /tmp/tmp.SC2szm/xdc/top_level.xdc
+# read_verilog -sv /tmp/tmp.SC2szm/src/slice_angle.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/lab04_ssc.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/clk_wiz_lab3.v
+# read_verilog -sv /tmp/tmp.SC2szm/src/mirror.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/convolution.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/top_level.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/divider.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/rgb_to_ycrcb.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/vga_mux.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/rotate2.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/threshold.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/game_logic.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/camera.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/block_sprite.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/xilinx_true_dual_port_read_first_2_clock_ram.v
+# read_verilog -sv /tmp/tmp.SC2szm/src/kernels.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/buffer.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/image_sprite.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/filter.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/iverilog_hack.svh
+# read_verilog -sv /tmp/tmp.SC2szm/src/xilinx_true_dual_port_read_first_1_clock_ram.v
+# read_verilog -sv /tmp/tmp.SC2szm/src/rotate.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/vga.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/center_of_mass.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/lfsr_16.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/scale.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/katana_tracking.sv
+# read_verilog -sv /tmp/tmp.SC2szm/src/recover.sv
 # synth_design -top top_level -part xc7a100tcsg324-1
 Command: synth_design -top top_level -part xc7a100tcsg324-1
 Starting synth_design
@@ -50,106 +50,113 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100
 INFO: [Device 21-403] Loading part xc7a100tcsg324-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 429686
-WARNING: [Synth 8-6901] identifier 'hcount_pipe' is used before its declaration [/tmp/tmp.gcfcMR/src/convolution.sv:31]
-WARNING: [Synth 8-6901] identifier 'vcount_pipe' is used before its declaration [/tmp/tmp.gcfcMR/src/convolution.sv:32]
-WARNING: [Synth 8-6901] identifier 'data_valid_pipe' is used before its declaration [/tmp/tmp.gcfcMR/src/convolution.sv:33]
-WARNING: [Synth 8-6901] identifier 'clk_65mhz' is used before its declaration [/tmp/tmp.gcfcMR/src/top_level.sv:130]
-WARNING: [Synth 8-6901] identifier 'full_pixel_pipe' is used before its declaration [/tmp/tmp.gcfcMR/src/top_level.sv:416]
-WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.gcfcMR/src/kernels.sv:10]
-WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.gcfcMR/src/kernels.sv:11]
-WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.gcfcMR/src/kernels.sv:12]
-WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.gcfcMR/src/kernels.sv:13]
-WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.gcfcMR/src/kernels.sv:14]
-WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.gcfcMR/src/kernels.sv:15]
-WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.gcfcMR/src/kernels.sv:16]
-WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.gcfcMR/src/kernels.sv:17]
-WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.gcfcMR/src/kernels.sv:18]
-WARNING: [Synth 8-6901] identifier 'data_valid_in_pipe' is used before its declaration [/tmp/tmp.gcfcMR/src/buffer.sv:24]
-WARNING: [Synth 8-6901] identifier 'hcount_pipe' is used before its declaration [/tmp/tmp.gcfcMR/src/buffer.sv:25]
-WARNING: [Synth 8-6901] identifier 'mux' is used before its declaration [/tmp/tmp.gcfcMR/src/buffer.sv:43]
-WARNING: [Synth 8-6901] identifier 'mux' is used before its declaration [/tmp/tmp.gcfcMR/src/buffer.sv:47]
-WARNING: [Synth 8-6901] identifier 'mux' is used before its declaration [/tmp/tmp.gcfcMR/src/buffer.sv:47]
-WARNING: [Synth 8-6901] identifier 'mux' is used before its declaration [/tmp/tmp.gcfcMR/src/buffer.sv:47]
-WARNING: [Synth 8-6901] identifier 'hcount_pipe' is used before its declaration [/tmp/tmp.gcfcMR/src/image_sprite.sv:54]
-WARNING: [Synth 8-6901] identifier 'hcount_pipe' is used before its declaration [/tmp/tmp.gcfcMR/src/image_sprite.sv:54]
-WARNING: [Synth 8-6901] identifier 'vcount_pipe' is used before its declaration [/tmp/tmp.gcfcMR/src/image_sprite.sv:55]
-WARNING: [Synth 8-6901] identifier 'vcount_pipe' is used before its declaration [/tmp/tmp.gcfcMR/src/image_sprite.sv:55]
+INFO: [Synth 8-7075] Helper process launched with PID 434334
+WARNING: [Synth 8-6901] identifier 'hcount_pipe' is used before its declaration [/tmp/tmp.SC2szm/src/convolution.sv:31]
+WARNING: [Synth 8-6901] identifier 'vcount_pipe' is used before its declaration [/tmp/tmp.SC2szm/src/convolution.sv:32]
+WARNING: [Synth 8-6901] identifier 'data_valid_pipe' is used before its declaration [/tmp/tmp.SC2szm/src/convolution.sv:33]
+WARNING: [Synth 8-6901] identifier 'clk_65mhz' is used before its declaration [/tmp/tmp.SC2szm/src/top_level.sv:132]
+WARNING: [Synth 8-6901] identifier 'full_pixel_pipe' is used before its declaration [/tmp/tmp.SC2szm/src/top_level.sv:418]
+WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.SC2szm/src/kernels.sv:10]
+WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.SC2szm/src/kernels.sv:11]
+WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.SC2szm/src/kernels.sv:12]
+WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.SC2szm/src/kernels.sv:13]
+WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.SC2szm/src/kernels.sv:14]
+WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.SC2szm/src/kernels.sv:15]
+WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.SC2szm/src/kernels.sv:16]
+WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.SC2szm/src/kernels.sv:17]
+WARNING: [Synth 8-6901] identifier 'coeffs_i' is used before its declaration [/tmp/tmp.SC2szm/src/kernels.sv:18]
+WARNING: [Synth 8-6901] identifier 'data_valid_in_pipe' is used before its declaration [/tmp/tmp.SC2szm/src/buffer.sv:24]
+WARNING: [Synth 8-6901] identifier 'hcount_pipe' is used before its declaration [/tmp/tmp.SC2szm/src/buffer.sv:25]
+WARNING: [Synth 8-6901] identifier 'mux' is used before its declaration [/tmp/tmp.SC2szm/src/buffer.sv:43]
+WARNING: [Synth 8-6901] identifier 'mux' is used before its declaration [/tmp/tmp.SC2szm/src/buffer.sv:47]
+WARNING: [Synth 8-6901] identifier 'mux' is used before its declaration [/tmp/tmp.SC2szm/src/buffer.sv:47]
+WARNING: [Synth 8-6901] identifier 'mux' is used before its declaration [/tmp/tmp.SC2szm/src/buffer.sv:47]
+WARNING: [Synth 8-6901] identifier 'hcount_pipe' is used before its declaration [/tmp/tmp.SC2szm/src/image_sprite.sv:54]
+WARNING: [Synth 8-6901] identifier 'hcount_pipe' is used before its declaration [/tmp/tmp.SC2szm/src/image_sprite.sv:54]
+WARNING: [Synth 8-6901] identifier 'vcount_pipe' is used before its declaration [/tmp/tmp.SC2szm/src/image_sprite.sv:55]
+WARNING: [Synth 8-6901] identifier 'vcount_pipe' is used before its declaration [/tmp/tmp.SC2szm/src/image_sprite.sv:55]
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2597.992 ; gain = 0.000 ; free physical = 2295 ; free virtual = 6423
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2596.023 ; gain = 0.000 ; free physical = 2285 ; free virtual = 6424
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-6157] synthesizing module 'top_level' [/tmp/tmp.gcfcMR/src/top_level.sv:4]
-INFO: [Synth 8-6157] synthesizing module 'filter' [/tmp/tmp.gcfcMR/src/filter.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'top_level' [/tmp/tmp.SC2szm/src/top_level.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'filter' [/tmp/tmp.SC2szm/src/filter.sv:2]
 	Parameter K_SELECT bound to: 0 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'buffer' [/tmp/tmp.gcfcMR/src/buffer.sv:8]
-INFO: [Synth 8-6157] synthesizing module 'xilinx_true_dual_port_read_first_1_clock_ram' [/tmp/tmp.gcfcMR/src/xilinx_true_dual_port_read_first_1_clock_ram.v:10]
+INFO: [Synth 8-6157] synthesizing module 'buffer' [/tmp/tmp.SC2szm/src/buffer.sv:8]
+INFO: [Synth 8-6157] synthesizing module 'xilinx_true_dual_port_read_first_1_clock_ram' [/tmp/tmp.SC2szm/src/xilinx_true_dual_port_read_first_1_clock_ram.v:10]
 	Parameter RAM_WIDTH bound to: 16 - type: integer 
 	Parameter RAM_DEPTH bound to: 320 - type: integer 
 	Parameter RAM_PERFORMANCE bound to: HIGH_PERFORMANCE - type: string 
-INFO: [Synth 8-6155] done synthesizing module 'xilinx_true_dual_port_read_first_1_clock_ram' (0#1) [/tmp/tmp.gcfcMR/src/xilinx_true_dual_port_read_first_1_clock_ram.v:10]
-INFO: [Synth 8-6155] done synthesizing module 'buffer' (0#1) [/tmp/tmp.gcfcMR/src/buffer.sv:8]
-INFO: [Synth 8-6157] synthesizing module 'convolution' [/tmp/tmp.gcfcMR/src/convolution.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'xilinx_true_dual_port_read_first_1_clock_ram' (0#1) [/tmp/tmp.SC2szm/src/xilinx_true_dual_port_read_first_1_clock_ram.v:10]
+INFO: [Synth 8-6155] done synthesizing module 'buffer' (0#1) [/tmp/tmp.SC2szm/src/buffer.sv:8]
+INFO: [Synth 8-6157] synthesizing module 'convolution' [/tmp/tmp.SC2szm/src/convolution.sv:4]
 	Parameter K_SELECT bound to: 0 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'kernels' [/tmp/tmp.gcfcMR/src/kernels.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'kernels' [/tmp/tmp.SC2szm/src/kernels.sv:4]
 	Parameter K_SELECT bound to: 0 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'kernels' (0#1) [/tmp/tmp.gcfcMR/src/kernels.sv:4]
-INFO: [Synth 8-6155] done synthesizing module 'convolution' (0#1) [/tmp/tmp.gcfcMR/src/convolution.sv:4]
-INFO: [Synth 8-6155] done synthesizing module 'filter' (0#1) [/tmp/tmp.gcfcMR/src/filter.sv:2]
-INFO: [Synth 8-6157] synthesizing module 'filter__parameterized0' [/tmp/tmp.gcfcMR/src/filter.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'kernels' (0#1) [/tmp/tmp.SC2szm/src/kernels.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'convolution' (0#1) [/tmp/tmp.SC2szm/src/convolution.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'filter' (0#1) [/tmp/tmp.SC2szm/src/filter.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'filter__parameterized0' [/tmp/tmp.SC2szm/src/filter.sv:2]
 	Parameter K_SELECT bound to: 1 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'convolution__parameterized0' [/tmp/tmp.gcfcMR/src/convolution.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'convolution__parameterized0' [/tmp/tmp.SC2szm/src/convolution.sv:4]
 	Parameter K_SELECT bound to: 1 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'kernels__parameterized0' [/tmp/tmp.gcfcMR/src/kernels.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'kernels__parameterized0' [/tmp/tmp.SC2szm/src/kernels.sv:4]
 	Parameter K_SELECT bound to: 1 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'kernels__parameterized0' (0#1) [/tmp/tmp.gcfcMR/src/kernels.sv:4]
-INFO: [Synth 8-6155] done synthesizing module 'convolution__parameterized0' (0#1) [/tmp/tmp.gcfcMR/src/convolution.sv:4]
-INFO: [Synth 8-6155] done synthesizing module 'filter__parameterized0' (0#1) [/tmp/tmp.gcfcMR/src/filter.sv:2]
-INFO: [Synth 8-6157] synthesizing module 'filter__parameterized1' [/tmp/tmp.gcfcMR/src/filter.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'kernels__parameterized0' (0#1) [/tmp/tmp.SC2szm/src/kernels.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'convolution__parameterized0' (0#1) [/tmp/tmp.SC2szm/src/convolution.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'filter__parameterized0' (0#1) [/tmp/tmp.SC2szm/src/filter.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'filter__parameterized1' [/tmp/tmp.SC2szm/src/filter.sv:2]
 	Parameter K_SELECT bound to: 2 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'convolution__parameterized1' [/tmp/tmp.gcfcMR/src/convolution.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'convolution__parameterized1' [/tmp/tmp.SC2szm/src/convolution.sv:4]
 	Parameter K_SELECT bound to: 2 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'kernels__parameterized1' [/tmp/tmp.gcfcMR/src/kernels.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'kernels__parameterized1' [/tmp/tmp.SC2szm/src/kernels.sv:4]
 	Parameter K_SELECT bound to: 2 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'kernels__parameterized1' (0#1) [/tmp/tmp.gcfcMR/src/kernels.sv:4]
-INFO: [Synth 8-6155] done synthesizing module 'convolution__parameterized1' (0#1) [/tmp/tmp.gcfcMR/src/convolution.sv:4]
-INFO: [Synth 8-6155] done synthesizing module 'filter__parameterized1' (0#1) [/tmp/tmp.gcfcMR/src/filter.sv:2]
-INFO: [Synth 8-6157] synthesizing module 'filter__parameterized2' [/tmp/tmp.gcfcMR/src/filter.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'kernels__parameterized1' (0#1) [/tmp/tmp.SC2szm/src/kernels.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'convolution__parameterized1' (0#1) [/tmp/tmp.SC2szm/src/convolution.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'filter__parameterized1' (0#1) [/tmp/tmp.SC2szm/src/filter.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'filter__parameterized2' [/tmp/tmp.SC2szm/src/filter.sv:2]
 	Parameter K_SELECT bound to: 3 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'convolution__parameterized2' [/tmp/tmp.gcfcMR/src/convolution.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'convolution__parameterized2' [/tmp/tmp.SC2szm/src/convolution.sv:4]
 	Parameter K_SELECT bound to: 3 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'kernels__parameterized2' [/tmp/tmp.gcfcMR/src/kernels.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'kernels__parameterized2' [/tmp/tmp.SC2szm/src/kernels.sv:4]
 	Parameter K_SELECT bound to: 3 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'kernels__parameterized2' (0#1) [/tmp/tmp.gcfcMR/src/kernels.sv:4]
-INFO: [Synth 8-6155] done synthesizing module 'convolution__parameterized2' (0#1) [/tmp/tmp.gcfcMR/src/convolution.sv:4]
-INFO: [Synth 8-6155] done synthesizing module 'filter__parameterized2' (0#1) [/tmp/tmp.gcfcMR/src/filter.sv:2]
-INFO: [Synth 8-6157] synthesizing module 'filter__parameterized3' [/tmp/tmp.gcfcMR/src/filter.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'kernels__parameterized2' (0#1) [/tmp/tmp.SC2szm/src/kernels.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'convolution__parameterized2' (0#1) [/tmp/tmp.SC2szm/src/convolution.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'filter__parameterized2' (0#1) [/tmp/tmp.SC2szm/src/filter.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'filter__parameterized3' [/tmp/tmp.SC2szm/src/filter.sv:2]
 	Parameter K_SELECT bound to: 4 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'convolution__parameterized3' [/tmp/tmp.gcfcMR/src/convolution.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'convolution__parameterized3' [/tmp/tmp.SC2szm/src/convolution.sv:4]
 	Parameter K_SELECT bound to: 4 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'kernels__parameterized3' [/tmp/tmp.gcfcMR/src/kernels.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'kernels__parameterized3' [/tmp/tmp.SC2szm/src/kernels.sv:4]
 	Parameter K_SELECT bound to: 4 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'kernels__parameterized3' (0#1) [/tmp/tmp.gcfcMR/src/kernels.sv:4]
-INFO: [Synth 8-6155] done synthesizing module 'convolution__parameterized3' (0#1) [/tmp/tmp.gcfcMR/src/convolution.sv:4]
-INFO: [Synth 8-6155] done synthesizing module 'filter__parameterized3' (0#1) [/tmp/tmp.gcfcMR/src/filter.sv:2]
-INFO: [Synth 8-6157] synthesizing module 'filter__parameterized4' [/tmp/tmp.gcfcMR/src/filter.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'kernels__parameterized3' (0#1) [/tmp/tmp.SC2szm/src/kernels.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'convolution__parameterized3' (0#1) [/tmp/tmp.SC2szm/src/convolution.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'filter__parameterized3' (0#1) [/tmp/tmp.SC2szm/src/filter.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'filter__parameterized4' [/tmp/tmp.SC2szm/src/filter.sv:2]
 	Parameter K_SELECT bound to: 5 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'convolution__parameterized4' [/tmp/tmp.gcfcMR/src/convolution.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'convolution__parameterized4' [/tmp/tmp.SC2szm/src/convolution.sv:4]
 	Parameter K_SELECT bound to: 5 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'kernels__parameterized4' [/tmp/tmp.gcfcMR/src/kernels.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'kernels__parameterized4' [/tmp/tmp.SC2szm/src/kernels.sv:4]
 	Parameter K_SELECT bound to: 5 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'kernels__parameterized4' (0#1) [/tmp/tmp.gcfcMR/src/kernels.sv:4]
-INFO: [Synth 8-6155] done synthesizing module 'convolution__parameterized4' (0#1) [/tmp/tmp.gcfcMR/src/convolution.sv:4]
-INFO: [Synth 8-6155] done synthesizing module 'filter__parameterized4' (0#1) [/tmp/tmp.gcfcMR/src/filter.sv:2]
-INFO: [Synth 8-6157] synthesizing module 'slice_angle' [/tmp/tmp.gcfcMR/src/slice_angle.sv:4]
-ERROR: [Synth 8-280] expression must be constant: first argument to $bitstoreal [/tmp/tmp.gcfcMR/src/slice_angle.sv:39]
-ERROR: [Synth 8-6156] failed synthesizing module 'slice_angle' [/tmp/tmp.gcfcMR/src/slice_angle.sv:4]
-ERROR: [Synth 8-6156] failed synthesizing module 'top_level' [/tmp/tmp.gcfcMR/src/top_level.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'kernels__parameterized4' (0#1) [/tmp/tmp.SC2szm/src/kernels.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'convolution__parameterized4' (0#1) [/tmp/tmp.SC2szm/src/convolution.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'filter__parameterized4' (0#1) [/tmp/tmp.SC2szm/src/filter.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'slice_angle' [/tmp/tmp.SC2szm/src/slice_angle.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'slice_angle' (0#1) [/tmp/tmp.SC2szm/src/slice_angle.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'game_logic' [/tmp/tmp.SC2szm/src/game_logic.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'block_sprite' [/tmp/tmp.SC2szm/src/block_sprite.sv:1]
+	Parameter WIDTH bound to: 128 - type: integer 
+	Parameter HEIGHT bound to: 128 - type: integer 
+	Parameter COLOR bound to: 12'b000000001111 
+INFO: [Synth 8-6155] done synthesizing module 'block_sprite' (0#1) [/tmp/tmp.SC2szm/src/block_sprite.sv:1]
+ERROR: [Synth 8-439] module 'parabolic' not found [/tmp/tmp.SC2szm/src/game_logic.sv:72]
+ERROR: [Synth 8-6156] failed synthesizing module 'game_logic' [/tmp/tmp.SC2szm/src/game_logic.sv:4]
+ERROR: [Synth 8-6156] failed synthesizing module 'top_level' [/tmp/tmp.SC2szm/src/top_level.sv:4]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2597.992 ; gain = 0.000 ; free physical = 3241 ; free virtual = 7369
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 2596.023 ; gain = 0.000 ; free physical = 3230 ; free virtual = 7370
 ---------------------------------------------------------------------------------
 RTL Elaboration failed
 INFO: [Common 17-83] Releasing license: Synthesis
-48 Infos, 24 Warnings, 0 Critical Warnings and 4 Errors encountered.
+52 Infos, 24 Warnings, 0 Critical Warnings and 4 Errors encountered.
 synth_design failed
 ERROR: [Common 17-69] Command failed: Synthesis failed - please see the console or run log file for details
-INFO: [Common 17-206] Exiting Vivado at Thu Dec  1 22:37:26 2022...
+INFO: [Common 17-206] Exiting Vivado at Thu Dec  1 23:45:29 2022...

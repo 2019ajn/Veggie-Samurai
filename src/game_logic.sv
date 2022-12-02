@@ -42,13 +42,13 @@ module game_logic(
 	split_sprite #(parameters) top_veggie(
 			.x_in(top_veggie_x), .hcount_in(hcount_in),
 	 		.y_in(top_veggie_y), .vcount_in(vcount_in),
-			.split_in(split), .angle_in(angle),
+			.split_in(split), .angle_in(angle), is_top(1),
 			.veggie_gone_in(veggie_gone), .pixel_out(top_veggie_out));
 	
 	split_sprite #(parameters) bottom_veggie(
 			.x_in(bottom_veggie_x), .hcount_in(hcount_in),
 	 		.y_in(bottom_veggie_y), .vcount_in(vcount_in),
-			.split_in(split), .angle_in(angle),
+			.split_in(split), .angle_in(angle), is_top(0),
 			.veggie_gone_in(veggie_gone), .pixel_out(bottom_veggie_out));
 	
 	split_sprite #(parameters) katana(

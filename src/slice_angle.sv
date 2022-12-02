@@ -10,7 +10,8 @@ module slice_angle(
   	input wire [10:0] katana_x,
   	input wire [9:0] katana_y,
 
-  	output real angle_out
+  	output logic [9:0] rise,
+  	output logic [9:0] run
 );
 
 	// IMPORTANT: when h_count == 1024 and v_count == 768, frame is over
@@ -21,19 +22,11 @@ module slice_angle(
 	logic [10:0] x_buffer [9:0];
 	logic [9:0] y_buffer [9:0];
 
-	real rise;
-	real run;
-
-	logic [10:0] a;
-	logic [10:0] b;
-	logic [9:0] c;
-	logic [9:0] d;
-
 	// possibly output rise/run and make sure they're signed (from lab 4b)
 
 	always @(*) begin // calculating rise and run
-		rise = $bitstoreal(y_buffer[0]) - $bitstoreal(y_buffer[9]); // gotta figure this real stuff out
-		run = $bitstoreal(x_buffer[0]) - $bitstoreal(x_buffer[9]);
+		rise = y_buffer[0] - y_buffer[9];
+		run = x_buffer[0] - x_buffer[9];
 	end
 
 	always_ff @(posedge clk_in)begin
@@ -51,9 +44,6 @@ module slice_angle(
 					y_buffer[i] <= y_buffer[i-1];
 				end
 			end
-
-			angle_out <= $atan2(run,rise); // calculating angle in radians
-
 		end
 	end
 

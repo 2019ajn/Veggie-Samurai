@@ -24,7 +24,8 @@ module top_level(
 logic [10:0] katana_x;
 logic [9:0] katana_y;
 logic [11:0] game_pixel_out;
-real angle; //radians
+logic [9:0] rise;
+logic [9:0] run;
 
 slice_angle katana (
   .clk_in(clk_65mhz),
@@ -33,7 +34,8 @@ slice_angle katana (
   .vcount_in(vcount), // need to be pipelined?
   .katana_x(katana_x), // from tracking/CoM
   .katana_y(katana_y), // from tracking/CoM
-  .angle_out(angle) // goes to split_sprite
+  .rise(rise), // goes to split_sprite
+  .run(run) // goes to split_sprite
 );
 
 game_logic game (
