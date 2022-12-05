@@ -24,9 +24,10 @@ module top_level(
 logic [10:0] katana_x;
 logic [9:0] katana_y;
 logic [11:0] game_pixel_out;
-logic [9:0] rise;
-logic [9:0] run;
+//logic [9:0] rise;
+//logic [9:0] run;
 
+/* instantiate in game_logic
 slice_angle katana (
   .clk_in(clk_65mhz),
   .rst_in(sys_rst),
@@ -37,6 +38,7 @@ slice_angle katana (
   .rise(rise), // goes to split_sprite
   .run(run) // goes to split_sprite
 );
+*/
 
 game_logic game (
   .clk_in(clk_65mhz),

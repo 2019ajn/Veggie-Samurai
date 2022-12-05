@@ -1,13 +1,16 @@
 `timescale 1ns / 1ps
 `default_nettype none
 
+`include "iverilog_hack.svh"
+
 module split_sprite #(parameter WIDTH=256, HEIGHT=256) (
     input wire pixel_clk_in,
     input wire rst_in,
     input wire [10:0] x_in, hcount_in,
     input wire [9:0]  y_in, vcount_in,
     input wire split_in,
-    input wire [9:0] angle_in,
+    input wire [10:0] run,
+    input wire [9:0] rise,
     input wire veggie_gone_in,
     input wire is_top,
     output logic [11:0] pixel_out);
@@ -56,7 +59,7 @@ module split_sprite #(parameter WIDTH=256, HEIGHT=256) (
 
     // assigning in_sprite based on split line
     logic in_sprite;
-    always_ff begin
+    always_comb begin
         if (split_in) begin
             in_sprite = ((hcount_pipe[3] >= x_in && hcount_pipe[3] < (x_in + WIDTH)) &&
                       (vcount_pipe[3] >= y_in && vcount_pipe[3] < (y_in + HEIGHT)));
