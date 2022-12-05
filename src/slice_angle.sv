@@ -44,6 +44,9 @@ module slice_angle(
 					y_buffer[i] <= y_buffer[i-1];
 				end
 			end
+
+			// do angle calculation here?
+
 		end
 	end
 

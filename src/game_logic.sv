@@ -40,29 +40,24 @@ module game_logic(
 	// don't need split, angle, or veggie_gone signals for katana
 	/*
 	split_sprite #(parameters) top_veggie(
+			.pixel_clk_in(clk_in), .rst_in(rst_in),
 			.x_in(top_veggie_x), .hcount_in(hcount_in),
 	 		.y_in(top_veggie_y), .vcount_in(vcount_in),
-<<<<<<< HEAD
 			.split_in(split), .angle_in(angle), .is_top(1'b1),
-=======
-			.split_in(split), .angle_in(angle), is_top(1),
->>>>>>> ac5d88e0c32a8046f381928bb1ab42cb31fe9051
 			.veggie_gone_in(veggie_gone), .pixel_out(top_veggie_out));
 	
 	split_sprite #(parameters) bottom_veggie(
+			.pixel_clk_in(clk_in), .rst_in(rst_in),
 			.x_in(bottom_veggie_x), .hcount_in(hcount_in),
 	 		.y_in(bottom_veggie_y), .vcount_in(vcount_in),
-<<<<<<< HEAD
 			.split_in(split), .angle_in(angle), .is_top(1'b0),
-=======
-			.split_in(split), .angle_in(angle), is_top(0),
->>>>>>> ac5d88e0c32a8046f381928bb1ab42cb31fe9051
 			.veggie_gone_in(veggie_gone), .pixel_out(bottom_veggie_out));
 	
 	split_sprite #(parameters) katana(
+			.pixel_clk_in(clk_in), .rst_in(rst_in),
 			.x_in(katana_x), .hcount_in(hcount_in),
 	 		.y_in(katana_y), .vcount_in(vcount_in),
-			.split_in(), .angle_in(),
+			.split_in(1'b0), .angle_in(),
 			.veggie_gone_in(), .pixel_out(katana_out));
 	*/
 	block_sprite #(.WIDTH(128), .HEIGHT(128), .COLOR(12'h00F)) top_veggie(

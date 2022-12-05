@@ -57,13 +57,18 @@ module split_sprite #(parameter WIDTH=256, HEIGHT=256) (
     // assigning in_sprite based on split line
     logic in_sprite;
     always_ff begin
-        if (is_top) begin
-            in_sprite = ((hcount_pipe[3] >= (x_in - WIDTH >> 1) && hcount_pipe[3] < (x_in + WIDTH >> 1)) &&
-                        (vcount_pipe[3] < (y_in + HEIGHT >> 1) && vcount_pipe[3] >= (y_in - HEIGHT >> 1) + (hcount_pipe[3]*rise / run)));
-
+        if (split_in) begin
+            in_sprite = ((hcount_pipe[3] >= x_in && hcount_pipe[3] < (x_in + WIDTH)) &&
+                      (vcount_pipe[3] >= y_in && vcount_pipe[3] < (y_in + HEIGHT)));
         end else begin
-            in_sprite = ((hcount_pipe[3] >= (x_in - WIDTH >> 1) && hcount_pipe[3] < (x_in + WIDTH >> 1)) &&
-                        (vcount_pipe[3] < (y_in + HEIGHT >> 1) && vcount_pipe[3] < (y_in - HEIGHT >> 1) + (hcount_pipe[3] * rise / run)));
+            if (is_top) begin
+                in_sprite = ((hcount_pipe[3] >= (x_in - WIDTH >> 1) && hcount_pipe[3] < (x_in + WIDTH >> 1)) &&
+                            (vcount_pipe[3] < (y_in + HEIGHT >> 1) && vcount_pipe[3] >= (y_in - HEIGHT >> 1) + (hcount_pipe[3]*rise / run)));
+
+            end else begin
+                in_sprite = ((hcount_pipe[3] >= (x_in - WIDTH >> 1) && hcount_pipe[3] < (x_in + WIDTH >> 1)) &&
+                            (vcount_pipe[3] < (y_in + HEIGHT >> 1) && vcount_pipe[3] < (y_in - HEIGHT >> 1) + (hcount_pipe[3] * rise / run)));
+            end
         end
     end
 
