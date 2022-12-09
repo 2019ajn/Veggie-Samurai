@@ -20,183 +20,25 @@ module top_level(
 
   );
 
-//NEW FOR PROJECT (START)----------------------------------------------
-logic [10:0] katana_x;
-logic [9:0] katana_y;
-logic [11:0] game_pixel_out;
-//logic [9:0] rise;
-//logic [9:0] run;
+  //NEW FOR PROJECT (START)----------------------------------------------
+  logic [10:0] katana_x;
+  logic [9:0] katana_y;
+  logic [11:0] game_pixel_out;
 
-/* instantiate in game_logic
-slice_angle katana (
-  .clk_in(clk_65mhz),
-  .rst_in(sys_rst),
-  .hcount_in(hcount), // need to be pipelined?
-  .vcount_in(vcount), // need to be pipelined?
-  .katana_x(katana_x), // from tracking/CoM
-  .katana_y(katana_y), // from tracking/CoM
-  .rise(rise), // goes to split_sprite
-  .run(run) // goes to split_sprite
-);
-*/
+  assign katana_x = x_com;
+  assign katana_y = y_com;
 
-game_logic game (
-  .clk_in(clk_65mhz),
-  .rst_in(sys_rst),
-  .hcount_in(hcount),
-  .vcount_in(vcount),
-  .katana_x(katana_x), // from tracker
-  .katana_y(katana_y), // from tracker
-  .pixel_out(game_pixel_out)
-);
-
-//NEW FOR PROJECT (END)------------------------------------------------
-
-//NEW FOR LAB 04B (START)----------------------------------------------
-  logic [15:0] pixel_data_rec; // pixel data from recovery module
-  logic [10:0] hcount_rec; //hcount from recovery module
-  logic [9:0] vcount_rec; //vcount from recovery module
-  logic  data_valid_rec; //single-cycle (65 MHz) valid data from recovery module
-
-  logic [10:0] hcount_f0;  //hcount from filter modules
-  logic [9:0] vcount_f0; //vcount from filter modules
-  logic [15:0] pixel_data_f0; //pixel data from filter modules
-  logic data_valid_f0; //valid signals for filter modules
-
-  logic [10:0] hcount_f [5:0];  //hcount from filter modules
-  logic [9:0] vcount_f [5:0]; //vcount from filter modules
-  logic [15:0] pixel_data_f [5:0]; //pixel data from filter modules
-  logic data_valid_f [5:0]; //valid signals for filter modules
-
-  logic [10:0] hcount_fmux; //hcount from filter mux
-  logic [9:0]  vcount_fmux; //vcount from filter mux
-  logic [15:0] pixel_data_fmux; //pixel data from filter mux
-  logic data_valid_fmux; //data valid from filter mux
-
-  //recovers hcount and vcount from camera module:
-  //generates data and a valid signal on 65 MHz
-  recover recover_m (
-    .cam_clk_in(cam_clk_in),
-    .valid_pixel_in(valid_pixel),
-    .pixel_in(cam_pixel),
-    .frame_done_in(frame_done),
-
-    .system_clk_in(clk_65mhz),
-    .rst_in(sys_rst),
-    .pixel_out(pixel_data_rec),
-    .data_valid_out(data_valid_rec),
-    .hcount_out(hcount_rec),
-    .vcount_out(vcount_rec));
-
-  //using generate/genvar, create five *Different* instances of the
-  //filter module (you'll write that).  Each filter will implement a different
-  //kernel
-  filter #(.K_SELECT(1)) filtern(
+  game_logic game ( // need to wire this into vga_mux
     .clk_in(clk_65mhz),
     .rst_in(sys_rst),
-    .data_valid_in(data_valid_rec),
-    .pixel_data_in(pixel_data_rec),
-    .hcount_in(hcount_rec),
-    .vcount_in(vcount_rec),
-    .data_valid_out(data_valid_f0),
-    .pixel_data_out(pixel_data_f0),
-    .hcount_out(hcount_f0),
-    .vcount_out(vcount_f0)
+    .hcount_in(hcount),
+    .vcount_in(vcount),
+    .katana_x(katana_x), // from tracker/CoM
+    .katana_y(katana_y), // from tracker/CoM
+    .pixel_out(game_pixel_out)
   );
-  generate
-    genvar i;
-    for (i=0; i<6; i=i+1)begin
-      filter #(.K_SELECT(i)) filterm(
-        .clk_in(clk_65mhz),
-        .rst_in(sys_rst),
-        .data_valid_in(data_valid_f0),
-        .pixel_data_in(pixel_data_f0),
-        .hcount_in(hcount_f0),
-        .vcount_in(vcount_f0),
-        .data_valid_out(data_valid_f[i]),
-        .pixel_data_out(pixel_data_f[i]),
-        .hcount_out(hcount_f[i]),
-        .vcount_out(vcount_f[i])
-      );
-    end
-  endgenerate
 
-  //combine hor and vert signals from filters 4 and 5 for special signal:
-  logic [7:0] fcomb_r, fcomb_g, fcomb_b;
-  assign fcomb_r = (pixel_data_f[4][15:11]+pixel_data_f[5][15:11])>>1;
-  assign fcomb_g = (pixel_data_f[4][10:5]+pixel_data_f[5][10:5])>>1;
-  assign fcomb_b = (pixel_data_f[4][4:0]+pixel_data_f[5][4:0])>>1;
-
-  //based on values of sw[2:0] select which filter output gets handed on to the
-  //next module. We must make sure to route hcount, vcount, pixels and valid signal
-  // for each module.  Could have done this with a for loop as well!  Think
-  // about it!
-  always_ff @(posedge clk_65mhz)begin
-    case (sw[2:0])
-      3'b000: begin
-        hcount_fmux <= hcount_f[0];
-        vcount_fmux <= vcount_f[0];
-        pixel_data_fmux <= pixel_data_f[0];
-        data_valid_fmux <= data_valid_f[0];
-      end
-      3'b001: begin
-        hcount_fmux <= hcount_f[1];
-        vcount_fmux <= vcount_f[1];
-        pixel_data_fmux <= pixel_data_f[1];
-        data_valid_fmux <= data_valid_f[1];
-      end
-      3'b010: begin
-        hcount_fmux <= hcount_f[2];
-        vcount_fmux <= vcount_f[2];
-        pixel_data_fmux <= pixel_data_f[2];
-        data_valid_fmux <= data_valid_f[2];
-      end
-      3'b011: begin
-        hcount_fmux <= hcount_f[3];
-        vcount_fmux <= vcount_f[3];
-        pixel_data_fmux <= pixel_data_f[3];
-        data_valid_fmux <= data_valid_f[3];
-      end
-      3'b100: begin
-        hcount_fmux <= hcount_f[4];
-        vcount_fmux <= vcount_f[4];
-        pixel_data_fmux <= pixel_data_f[4];
-        data_valid_fmux <= data_valid_f[4];
-      end
-      3'b101: begin
-        hcount_fmux <= hcount_f[5];
-        vcount_fmux <= vcount_f[5];
-        pixel_data_fmux <= pixel_data_f[5];
-        data_valid_fmux <= data_valid_f[5];
-      end
-      3'b110: begin
-        hcount_fmux <= hcount_f[4];
-        vcount_fmux <= vcount_f[4];
-        pixel_data_fmux <= {fcomb_r[4:0],fcomb_g[5:0],fcomb_b[4:0]};
-        data_valid_fmux <= data_valid_f[4]&&data_valid_f[5];
-      end
-      default: begin
-        hcount_fmux <= hcount_f[0];
-        vcount_fmux <= vcount_f[0];
-        pixel_data_fmux <= 16'b11111_000000_11111;
-        data_valid_fmux <= data_valid_f[0];
-      end
-    endcase
-  end
-  //new rotate module only on 65 MHz:
-  //same as old one, but this one runs on 65 MHz with valid signal as
-  //opposed to old one that ran on 16.67 MHz.
-  rotate2 rotate_m(
-    .clk_in(clk_65mhz),
-    .hcount_in(hcount_fmux),
-    .vcount_in(vcount_fmux),
-    .data_valid_in(data_valid_fmux),
-    .pixel_in(pixel_data_fmux),
-    .pixel_out(pixel_rotate),
-    .pixel_addr_out(pixel_addr_in),
-    .data_valid_out(valid_pixel_rotate));
-
-  //NEW FOR LAB 04B (END)----------------------------------------------
+  //NEW FOR PROJECT (END)------------------------------------------------
 
   //system reset switch linking
   logic sys_rst; //global system reset
@@ -302,7 +144,7 @@ game_logic game (
     .pixel_out(cam_pixel),
     .pixel_valid_out(valid_pixel),
     .frame_done_out(frame_done));
-  /*
+
   //Rotates Image to render correctly (pi/2 CCW rotate):
   rotate rotate_m (
     .cam_clk_in(cam_clk_in),
@@ -311,7 +153,7 @@ game_logic game (
     .valid_pixel_out(valid_pixel_rotate),
     .pixel_out(pixel_rotate),
     .frame_done_in(frame_done),
-    .pixel_addr_in(pixel_addr_in)); */
+    .pixel_addr_in(pixel_addr_in));
 
   //Two Clock Frame Buffer:
   //Data written on 16.67 MHz (From camera)
@@ -323,7 +165,7 @@ game_logic game (
     frame_buffer (
     //Write Side (16.67MHz)
     .addra(pixel_addr_in),
-    .clka(clk_65mhz), // changed
+    .clka(cam_clk_in),
     .wea(valid_pixel_rotate),
     .dina(pixel_rotate),
     .ena(1'b1),
@@ -356,9 +198,9 @@ game_logic game (
   //for CHECKOFF 3!
   mirror mirror_m(
     .clk_in(clk_65mhz),
-    .mirror_in(1'b1), //changed
-    .scale_in(2'b01), // changed
-    .hcount_in(hcount),
+    .mirror_in(sw[2]),
+    .scale_in(sw[1:0]),
+    .hcount_in(hcount), //
     .vcount_in(vcount),
     .pixel_addr_out(pixel_addr_out)
   );
@@ -383,7 +225,7 @@ game_logic game (
   //Latency: 0
 
   scale scale_m(
-    .scale_in(2'b01), //changed
+    .scale_in(sw[1:0]),
     .hcount_in(hcount_pipe_2[3]), //TODO: needs to use pipelined signal (PS2)
     .vcount_in(vcount_pipe_2[3]), //TODO: needs to use pipelined signal (PS2)
     .frame_buff_in(frame_buff),
