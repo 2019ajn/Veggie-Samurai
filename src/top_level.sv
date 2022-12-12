@@ -335,6 +335,9 @@ module top_level(
       vcount_pipe_1[i] <= vcount_pipe_1[i-1];
     end
   end
+
+
+  // create com/katana image in game_logic
   
   //Image Sprite (your implementation from Lab03):
   //Latency 4 cycle
@@ -375,11 +378,13 @@ module top_level(
   //    01: green crosshair on center of mass
   //    10: image sprite on top of center of mass
   //    11: all pink screen (for VGA functionality testing)
-  vga_mux (.sel_in(sw[9:6]),
+  vga_mux (
+  .sel_in(sw[9:6]), // sel_in needs to be 4'b0100
   .camera_pixel_in({full[15:12],full[10:7],full[4:1]}), //TODO: needs to use pipelined signal(PS5)
   .camera_y_in(y[9:6]),
   .channel_in(sel_channel),
   .thresholded_pixel_in(mask),
+  .game_pixel_in(game_pixel_out),
   .crosshair_in(crosshair_pipe[3]), //TODO: needs to use pipelined signal (PS4)
   .com_sprite_pixel_in(com_sprite_pixel),
   .pixel_out(mux_pixel)
