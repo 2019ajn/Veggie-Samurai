@@ -55,7 +55,7 @@ module game_logic(
 	// instantiate veggie and katana split_sprite here
 	// don't need split, angle, or veggie_gone signals for katana
 	/*
-	split_sprite #(parameters) top_veggie(
+	split_sprite #(.WIDTH(256), .HEIGHT(120)) top_veggie(
 			.pixel_clk_in(clk_in), .rst_in(rst_in),
 			.x_in(top_veggie_x), .hcount_in(hcount_in),
 	 		.y_in(top_veggie_y), .vcount_in(vcount_in),
@@ -63,24 +63,17 @@ module game_logic(
 			.is_top(1'b1), .veggie_gone_in(veggie_gone),
 			.pixel_out(top_veggie_out));
 	
-	split_sprite #(parameters) bottom_veggie(
+	split_sprite #(.WIDTH(256), .HEIGHT(120)) bottom_veggie(
 			.pixel_clk_in(clk_in), .rst_in(rst_in),
 			.x_in(bottom_veggie_x), .hcount_in(hcount_in),
 	 		.y_in(bottom_veggie_y), .vcount_in(vcount_in),
 			.split_in(split), .rise(rise), .run(run),
 			.is_top(1'b0), .veggie_gone_in(veggie_gone),
 			.pixel_out(bottom_veggie_out));
-	
-	split_sprite #(parameters) katana(
-			.pixel_clk_in(clk_in), .rst_in(rst_in),
-			.x_in(katana_x), .hcount_in(hcount_in),
-	 		.y_in(katana_y), .vcount_in(vcount_in),
-			.split_in(1'b0), .rise(rise), .run(run),
-			.is_top(), .veggie_gone_in(1'b0),
-			.pixel_out(katana_out));
 	*/
 
 	//block sprites for testing
+	/*
 	block_sprite #(.WIDTH(128), .HEIGHT(128), .COLOR(12'h00F)) top_veggie(
             .x_in(top_veggie_x), .hcount_in(hcount_in),
             .y_in(top_veggie_y), .vcount_in(vcount_in),
@@ -89,7 +82,15 @@ module game_logic(
             .x_in(bottom_veggie_x), .hcount_in(hcount_in),
             .y_in(bottom_veggie_y), .vcount_in(vcount_in),
             .pixel_out(bottom_veggie_out));
-
+    */
+    /*
+	image_sprite #(.WIDTH(64), .HEIGHT(64)) katana_image(
+                .pixel_clk_in(clk_in),
+                .rst_in(rst_in),
+                .x_in(katana_x), .hcount_in(hcount_in),
+                .y_in(katana_y), .vcount_in(vcount_in),
+                .pixel_out(katana_out));
+	*/
 	// instantiate veggie parabolic movement module outputs x and y speed
 	// upon receiving split signal, change movement
 	// upon receiving veggie_gone signal, set movement to zero

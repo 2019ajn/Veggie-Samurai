@@ -20,7 +20,9 @@ module top_level(
 
   );
 
-  //NEW FOR PROJECT (START)----------------------------------------------
+  // NEW FOR PROJECT
+  ////////////////////////////////////////////////////////
+
   logic [10:0] katana_x;
   logic [9:0] katana_y;
   logic [11:0] game_pixel_out;
@@ -38,7 +40,20 @@ module top_level(
     .pixel_out(game_pixel_out)
   );
 
-  //NEW FOR PROJECT (END)------------------------------------------------
+  ///// KATANA HERE
+  image_sprite #(
+    .WIDTH(64),
+    .HEIGHT(64))
+    com_sprite_m (
+    .pixel_clk_in(clk_65mhz),
+    .rst_in(sys_rst),
+    .hcount_in(hcount_pipe_1[2]),   //TODO: needs to use pipelined signal (PS1)
+    .vcount_in(vcount_pipe_1[2]),   //TODO: needs to use pipelined signal (PS1)
+    .x_in(x_com>32 ? x_com-32 : 0),
+    .y_in(y_com>32 ? y_com-32 : 0),
+    .pixel_out(com_sprite_pixel));
+
+  ////////////////////////////////////////////////////////
 
   //system reset switch linking
   logic sys_rst; //global system reset
@@ -335,12 +350,10 @@ module top_level(
       vcount_pipe_1[i] <= vcount_pipe_1[i-1];
     end
   end
-
-
-  // create com/katana image in game_logic
   
   //Image Sprite (your implementation from Lab03):
   //Latency 4 cycle
+  /*
   image_sprite #(
     .WIDTH(256),
     .HEIGHT(256))
@@ -352,7 +365,7 @@ module top_level(
     .x_in(x_com>128 ? x_com-128 : 0),
     .y_in(y_com>128 ? y_com-128 : 0),
     .pixel_out(com_sprite_pixel));
-  
+  */
   //Create Crosshair patter on center of mass:
   //0 cycle latency
   assign crosshair = ((vcount_pipe_1[2]==y_com)||(hcount_pipe_1[2]==x_com));;
@@ -378,8 +391,7 @@ module top_level(
   //    01: green crosshair on center of mass
   //    10: image sprite on top of center of mass
   //    11: all pink screen (for VGA functionality testing)
-  vga_mux (
-  .sel_in(sw[9:6]), // sel_in needs to be 4'b0100
+  vga_mux (.sel_in(sw[9:6]),
   .camera_pixel_in({full[15:12],full[10:7],full[4:1]}), //TODO: needs to use pipelined signal(PS5)
   .camera_y_in(y[9:6]),
   .channel_in(sel_channel),

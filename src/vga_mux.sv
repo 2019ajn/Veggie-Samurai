@@ -30,28 +30,28 @@ module vga_mux (
 // sel_in needs to be 4'b0100
 
 
-  //logic [1:0] mask_video_thresh;
+  logic [1:0] mask_video_thresh;
   assign mask_video_thresh = sel_in[1:0];
 
   logic [11:0] l_1;
-  assign l_1 = camera_pixel_in;
-  /*
+  //assign l_1 = camera_pixel_in;
+  
   always_comb begin
     case (mask_video_thresh)
-      2'b00: l_1 = camera_pixel_in;
+      2'b00: l_1 = game_pixel_in ? game_pixel_in:camera_pixel_in;
       2'b01: l_1 = {channel_in, channel_in, channel_in};
       2'b10: l_1 = (thresholded_pixel_in !=0)?12'hFFF:12'h000;
       2'b11: l_1 = (thresholded_pixel_in != 0) ? 12'hA26 : {camera_y_in,camera_y_in,camera_y_in};
     endcase
   end
-  */
+  
 
-  //logic [1:0] options;
-  //assign options = sel_in[3:2];
+  logic [1:0] options;
+  assign options = sel_in[3:2];
   logic [11:0] l_2;
 
-  assign l_2 = game_pixel_in ? game_pixel_in:l_1;
-  /*
+  //assign l_2 = game_pixel_in ? game_pixel_in:l_1;
+  
   always_comb begin
     case (options)
       2'b00: l_2 = l_1;
@@ -60,7 +60,7 @@ module vga_mux (
       2'b11: l_2 = 12'hA26; //test color
     endcase
   end
-  */
+  
 
 
   assign pixel_out = l_2;

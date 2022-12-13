@@ -20,7 +20,7 @@ module split_sprite #(parameter WIDTH=256, HEIGHT=256) (
         .RAM_WIDTH(8),                       // Specify RAM data width
         .RAM_DEPTH(256*256),                     // Specify RAM depth (number of entries)
         .RAM_PERFORMANCE("HIGH_PERFORMANCE"), // Select "HIGH_PERFORMANCE" or "LOW_LATENCY" 
-        .INIT_FILE(`FPATH(image.mem))          // Specify name/location of RAM initialization file if using one (leave blank if not)
+        .INIT_FILE(`FPATH(banana_image.mem))          // Specify name/location of RAM initialization file if using one (leave blank if not)
     ) image (
         .addra(image_addr),     // Address bus, width determined from RAM_DEPTH
         .dina(0),       // RAM input data, width determined from RAM_WIDTH
@@ -36,7 +36,7 @@ module split_sprite #(parameter WIDTH=256, HEIGHT=256) (
         .RAM_WIDTH(12),                       // Specify RAM data width
         .RAM_DEPTH(256),                     // Specify RAM depth (number of entries)
         .RAM_PERFORMANCE("HIGH_PERFORMANCE"), // Select "HIGH_PERFORMANCE" or "LOW_LATENCY" 
-        .INIT_FILE(`FPATH(palette.mem))          // Specify name/location of RAM initialization file if using one (leave blank if not)
+        .INIT_FILE(`FPATH(banana_palette.mem))          // Specify name/location of RAM initialization file if using one (leave blank if not)
     ) palette (
         .addra(image_out),     // Address bus, width determined from RAM_DEPTH
         .dina(0),       // RAM input data, width determined from RAM_WIDTH
