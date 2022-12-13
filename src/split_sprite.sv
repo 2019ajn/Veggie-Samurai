@@ -53,14 +53,13 @@ module split_sprite #(parameter WIDTH=256, HEIGHT=256) (
 
     // calculate rom address
     logic [$clog2(WIDTH*HEIGHT)-1:0] image_addr;
-    assign image_addr = (hcount_in - (x_in - WIDTH >> 1) + (vcount_in - (y_in - HEIGHT >> 1)) * WIDTH);
-
+    assign image_addr = (hcount_in - x_in) + ((vcount_in - y_in) * WIDTH); // this is correct for rom address calculation
 
 
     // assigning in_sprite based on split line
     logic in_sprite;
     always_comb begin
-        if (split_in) begin
+        if (~split_in) begin
             in_sprite = ((hcount_pipe[3] >= x_in && hcount_pipe[3] < (x_in + WIDTH)) &&
                       (vcount_pipe[3] >= y_in && vcount_pipe[3] < (y_in + HEIGHT)));
         end else begin

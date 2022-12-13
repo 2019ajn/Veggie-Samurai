@@ -27,20 +27,22 @@ module top_level(
   logic [9:0] katana_y;
   logic [11:0] game_pixel_out;
 
-  assign katana_x = x_com;
-  assign katana_y = y_com;
+  //assign katana_x = x_com;
+  //assign katana_y = y_com;
 
   game_logic game ( // need to wire this into vga_mux
     .clk_in(clk_65mhz),
     .rst_in(sys_rst),
     .hcount_in(hcount),
     .vcount_in(vcount),
-    .katana_x(katana_x), // from tracker/CoM
-    .katana_y(katana_y), // from tracker/CoM
+    .katana_x(x_com), // from tracker/CoM
+    .katana_y(y_com), // from tracker/CoM
     .pixel_out(game_pixel_out)
   );
 
   ///// KATANA HERE
+  // Blue Chrominance mask
+  //
   image_sprite #(
     .WIDTH(64),
     .HEIGHT(64))
