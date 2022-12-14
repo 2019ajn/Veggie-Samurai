@@ -20,15 +20,15 @@ module slice_angle(
   	assign frame_done = hcount_in == 1024 && vcount_in == 768;
 
 	// buffer in 10 x,y coordinates every frame
-	logic [10:0] x_buffer [9:0];
-	logic [9:0] y_buffer [9:0];
+	logic [10:0] x_buffer [19:0];
+	logic [9:0] y_buffer [19:0];
 
 	// possibly output rise/run and make sure they're signed (from lab 4b)
 
 	always @(*) begin // calculating rise and run
 		if (~split_in) begin // only change rise and run if not split yet. if split, hold values.
-			rise = $signed({1'b0,y_buffer[0]} - {1'b0,y_buffer[9]});
-			run = $signed({1'b0,x_buffer[0]} - {1'b0,x_buffer[9]});
+			rise = $signed({1'b0,y_buffer[0]} - {1'b0,y_buffer[19]});
+			run = $signed({1'b0,x_buffer[0]} - {1'b0,x_buffer[19]});
 		end
 	end
 
@@ -36,7 +36,7 @@ module slice_angle(
 
 	always_ff @(posedge clk_in)begin
 		if(rst_in) begin
-			for(int i = 0; i <= 9; i=i+1) begin //clear buffers
+			for(int i = 0; i <= 19; i=i+1) begin //clear buffers
 				x_buffer[i] <= 0;
 				y_buffer[i] <= 0;
 			end
@@ -44,7 +44,7 @@ module slice_angle(
 			if (frame_done) begin
 				x_buffer[0] <= katana_x; // shifting buffer items
 				y_buffer[0] <= katana_y;
-				for(int i = 1; i <= 9; i=i+1) begin
+				for(int i = 1; i <= 19; i=i+1) begin
 					x_buffer[i] <= x_buffer[i-1];
 					y_buffer[i] <= y_buffer[i-1];
 				end
