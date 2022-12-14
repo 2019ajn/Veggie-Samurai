@@ -9,9 +9,10 @@ module slice_angle(
   	input wire [9:0] vcount_in,
   	input wire [10:0] katana_x,
   	input wire [9:0] katana_y,
+  	input wire split_in,
 
-  	output logic [9:0] rise,
-  	output logic [9:0] run
+  	output logic signed [9:0] rise,
+  	output logic signed [9:0] run
 );
 
 	// IMPORTANT: when h_count == 1024 and v_count == 768, frame is over
@@ -25,9 +26,13 @@ module slice_angle(
 	// possibly output rise/run and make sure they're signed (from lab 4b)
 
 	always @(*) begin // calculating rise and run
-		rise = y_buffer[0] - y_buffer[9];
-		run = x_buffer[0] - x_buffer[9];
+		if (~split_in) begin // only change rise and run if not split yet. if split, hold values.
+			rise = $signed({1'b0,y_buffer[0]} - {1'b0,y_buffer[9]});
+			run = $signed({1'b0,x_buffer[0]} - {1'b0,x_buffer[9]});
+		end
 	end
+
+
 
 	always_ff @(posedge clk_in)begin
 		if(rst_in) begin
@@ -45,7 +50,6 @@ module slice_angle(
 				end
 			end
 
-			// do angle calculation here?
 
 		end
 	end

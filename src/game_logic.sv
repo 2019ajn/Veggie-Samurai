@@ -27,10 +27,8 @@ module game_logic(
 	logic [2:0] bottom_veggie_x_speed;
 	logic [2:0] bottom_veggie_y_speed;
 
-	logic [11:0] katana_out; // katana pixel_out from split_image module
-
-	logic [10:0] run;
-	logic [9:0] rise;
+	logic signed [10:0] run;
+	logic signed [9:0] rise;
 
 	logic split;
 
@@ -48,6 +46,7 @@ module game_logic(
   		.vcount_in(vcount_in), // need to be pipelined?
   		.katana_x(katana_x), // from tracking/CoM
   		.katana_y(katana_y), // from tracking/CoM
+  		.split_in(split),
   		.rise(rise), // goes to split_sprite
   		.run(run) // goes to split_sprite
 	);
@@ -55,25 +54,25 @@ module game_logic(
 	// instantiate veggie and katana split_sprite here
 	// don't need split, angle, or veggie_gone signals for katana
 
-	assign top_veggie_x = 150;
-	assign top_veggie_y = 150;
-	assign bottom_veggie_x = 150;
-	assign bottom_veggie_y = 150;
+	assign top_veggie_x = 200;
+	assign top_veggie_y = 200;
+	assign bottom_veggie_x = 400;
+	assign bottom_veggie_y = 400;
 	
 	split_sprite #(.WIDTH(128), .HEIGHT(128)) top_veggie(
 			.pixel_clk_in(clk_in), .rst_in(rst_in),
 			.x_in(top_veggie_x), .hcount_in(hcount_in),
 	 		.y_in(top_veggie_y), .vcount_in(vcount_in),
-			.split_in(0), .rise(rise), .run(run),
-			.is_top(1'b1), .veggie_gone_in(veggie_gone),
+			.split_in(split), .rise(rise), .run(run),
+			.is_top(1), .veggie_gone_in(veggie_gone),
 			.pixel_out(top_veggie_out));
 	
 	split_sprite #(.WIDTH(128), .HEIGHT(128)) bottom_veggie(
 			.pixel_clk_in(clk_in), .rst_in(rst_in),
 			.x_in(bottom_veggie_x), .hcount_in(hcount_in),
 	 		.y_in(bottom_veggie_y), .vcount_in(vcount_in),
-			.split_in(0), .rise(rise), .run(run),
-			.is_top(1'b0), .veggie_gone_in(veggie_gone),
+			.split_in(split), .rise(rise), .run(run),
+			.is_top(0), .veggie_gone_in(veggie_gone),
 			.pixel_out(bottom_veggie_out));
 	
 
@@ -88,14 +87,7 @@ module game_logic(
             .y_in(bottom_veggie_y), .vcount_in(vcount_in),
             .pixel_out(bottom_veggie_out));
     */
-    /*
-	image_sprite #(.WIDTH(64), .HEIGHT(64)) katana_image(
-                .pixel_clk_in(clk_in),
-                .rst_in(rst_in),
-                .x_in(katana_x), .hcount_in(hcount_in),
-                .y_in(katana_y), .vcount_in(vcount_in),
-                .pixel_out(katana_out));
-	*/
+    
 	// instantiate veggie parabolic movement module outputs x and y speed
 	// upon receiving split signal, change movement
 	// upon receiving veggie_gone signal, set movement to zero
@@ -116,11 +108,8 @@ module game_logic(
   	logic frame_done;
   	assign frame_done = hcount_in == 1024 && vcount_in == 768;
 
-
 	always_comb begin // katana displays "on top of" fruit
-		if (|katana_out) begin
-			pixel_out = katana_out;
-		end else if (|top_veggie_out) begin
+		if (|top_veggie_out) begin
 			pixel_out = top_veggie_out;
 		end else if (|bottom_veggie_out) begin
 			pixel_out = bottom_veggie_out;
@@ -142,8 +131,8 @@ module game_logic(
 				
 				// KATANA-VEGGIE INTERACTION - if katana contacts fruit, send split signal for one clock cycle;
 				if (~split) begin // make sure split signal is only sent when fruit isn't already split
-					if ((katana_x >= top_veggie_x && katana_x <= top_veggie_x - veggie_width) &&
-					(katana_y >= top_veggie_y && katana_y <= top_veggie_y - veggie_height)) begin
+					if ((katana_x >= top_veggie_x - 64 && katana_x <= top_veggie_x + 64) &&
+					(katana_y >= top_veggie_y - 64 && katana_y <= top_veggie_y + 64)) begin
 						split <= 1;
 					end
 				end

@@ -9,8 +9,8 @@ module split_sprite #(parameter WIDTH=256, HEIGHT=256) (
     input wire [10:0] x_in, hcount_in,
     input wire [9:0]  y_in, vcount_in,
     input wire split_in,
-    input wire [10:0] run,
-    input wire [9:0] rise,
+    input wire signed[10:0] run,
+    input wire signed[9:0] rise,
     input wire veggie_gone_in,
     input wire is_top,
     output logic [11:0] pixel_out);
@@ -53,26 +53,62 @@ module split_sprite #(parameter WIDTH=256, HEIGHT=256) (
 
     // calculate rom address
     logic [$clog2(WIDTH*HEIGHT)-1:0] image_addr;
-    assign image_addr = (hcount_in - x_in) + ((vcount_in - y_in) * WIDTH); // this is correct for rom address calculation
+    //assign image_addr = (hcount_in - (x_in - WIDTH >> 1) + (vcount_in - (y_in - HEIGHT >> 1)) * WIDTH);
+    assign image_addr = (hcount_in - x_in + 64) + ((vcount_in - y_in + 64) * WIDTH);
 
 
     // assigning in_sprite based on split line
     logic in_sprite;
-    always_comb begin
-        if (~split_in) begin
-            in_sprite = ((hcount_pipe[3] >= x_in && hcount_pipe[3] < (x_in + WIDTH)) &&
-                      (vcount_pipe[3] >= y_in && vcount_pipe[3] < (y_in + HEIGHT)));
-        end else begin
-            if (is_top) begin
-                in_sprite = ((hcount_pipe[3] >= (x_in - WIDTH >> 1) && hcount_pipe[3] < (x_in + WIDTH >> 1)) &&
-                            (vcount_pipe[3] < (y_in + HEIGHT >> 1) && vcount_pipe[3] >= (y_in - HEIGHT >> 1) + (hcount_pipe[3]*rise / run)));
+    logic signed [3:0] test_run;
+    logic signed [3:0] test_rise;
 
+    assign test_run = 4'b0001;
+    assign test_rise = 4'b0000;
+
+    /*
+    always_ff @(posedge pixel_clk_in) begin
+        if (split_in) begin
+            test_rise <= rise;
+        end
+    end */
+
+    always_comb begin
+
+        //slope needs to originate from center
+        
+        if (split_in) begin
+            if (is_top) begin
+                if (rise[3:0] == 0) begin
+                    in_sprite = hcount_pipe[3] >= x_in - (WIDTH >> 1) && hcount_pipe[3] < x_in + (WIDTH >> 1) &&
+                      vcount_pipe[3] >= y_in - (HEIGHT >> 1) && vcount_pipe[3] < y_in;
+                end else if (run[3:0] == 0) begin
+                    in_sprite = hcount_pipe[3] >= x_in - (WIDTH >> 1) && hcount_pipe[3] < x_in &&
+                      vcount_pipe[3] >= y_in - (HEIGHT >> 1) && vcount_pipe[3] < y_in + (HEIGHT >> 1);
+                end else begin
+                    in_sprite = hcount_pipe[3] >= x_in - (WIDTH >> 1) && hcount_pipe[3] < x_in + (WIDTH >> 1) &&
+                                vcount_pipe[3] >= y_in - (HEIGHT >> 1) && vcount_pipe[3] <= 64 - y_in + (hcount_pipe[3] - 64) * rise[3:0] / run[3:0] && vcount_pipe[3] <= y_in + (HEIGHT >> 1);
+                end
             end else begin
-                in_sprite = ((hcount_pipe[3] >= (x_in - WIDTH >> 1) && hcount_pipe[3] < (x_in + WIDTH >> 1)) &&
-                            (vcount_pipe[3] < (y_in + HEIGHT >> 1) && vcount_pipe[3] < (y_in - HEIGHT >> 1) + (hcount_pipe[3] * rise / run)));
+                if (rise[3:0] == 0) begin
+                    in_sprite = hcount_pipe[3] >= x_in - (WIDTH >> 1) && hcount_pipe[3] < x_in + (WIDTH >> 1) &&
+                      vcount_pipe[3] >= y_in && vcount_pipe[3] < y_in + (HEIGHT >> 1);
+                end else if (run[3:0] == 0) begin
+                    in_sprite = hcount_pipe[3] >= x_in && hcount_pipe[3] < x_in + (WIDTH >> 1) &&
+                      vcount_pipe[3] >= y_in - (HEIGHT >> 1) && vcount_pipe[3] < y_in;
+                end else begin
+                    in_sprite = hcount_pipe[3] >= x_in - (WIDTH >> 1) && hcount_pipe[3] < x_in + (WIDTH >> 1) &&
+                                vcount_pipe[3] >= y_in - (HEIGHT >> 1) && vcount_pipe[3] > 64 - y_in + (hcount_pipe[3] - 64) * rise[3:0] / run[3:0] && vcount_pipe[3] <= y_in + (HEIGHT >> 1);
+                end
+                //in_sprite = hcount_pipe[3] >= x_in - (WIDTH >> 1) && hcount_pipe[3] < x_in + (WIDTH >> 1) &&
+                //            vcount_pipe[3] >= y_in - (HEIGHT >> 1) && $signed({1'b0,vcount_pipe[3]}) > $signed({1'b0,(y_in - (HEIGHT >> 1))}) + $signed({1'b0,hcount_pipe[3]}) * $signed(test_rise[9:6]) / $signed(test_run[10:7]);
             end
+        end else begin
+            in_sprite = hcount_pipe[3] >= x_in - (WIDTH >> 1) && hcount_pipe[3] < x_in + (WIDTH >> 1) &&
+                      vcount_pipe[3] >= y_in - (HEIGHT >> 1) && vcount_pipe[3] < y_in + (HEIGHT >> 1);
         end
     end
+    
+    
 
     // Modify the line below to use your BRAMs!
     assign pixel_out = in_sprite ? palette_out : 0;
