@@ -73,9 +73,16 @@ module split_sprite #(parameter WIDTH=256, HEIGHT=256) (
     end */
 
     always_comb begin
-
+        if (~split_in) begin
+            in_sprite = hcount_pipe[3] >= x_in - (WIDTH >> 1) && hcount_pipe[3] < x_in + (WIDTH >> 1) &&
+                      vcount_pipe[3] >= y_in - (HEIGHT >> 1) && vcount_pipe[3] < y_in + (HEIGHT >> 1);
+        end else begin
+            in_sprite = 0;
+        end
+    end
+    /*
+    always_comb begin
         //slope needs to originate from center
-        
         if (split_in) begin
             if (is_top) begin
                 if (rise[3:0] == 0) begin
@@ -107,6 +114,7 @@ module split_sprite #(parameter WIDTH=256, HEIGHT=256) (
                       vcount_pipe[3] >= y_in - (HEIGHT >> 1) && vcount_pipe[3] < y_in + (HEIGHT >> 1);
         end
     end
+    */
     
     
 

@@ -215,9 +215,9 @@ module top_level(
   //for CHECKOFF 3!
   mirror mirror_m(
     .clk_in(clk_65mhz),
-    .mirror_in(sw[2]),
-    .scale_in(sw[1:0]),
-    .hcount_in(hcount), //
+    .mirror_in(sw[2]), //sw[2]
+    .scale_in(sw[1:0]), //sw[1:0]
+    .hcount_in(hcount),
     .vcount_in(vcount),
     .pixel_addr_out(pixel_addr_out)
   );
